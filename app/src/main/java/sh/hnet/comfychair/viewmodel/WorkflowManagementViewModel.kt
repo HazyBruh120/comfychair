@@ -489,7 +489,7 @@ class WorkflowManagementViewModel : ViewModel() {
         val negativeTextCandidates = mutableListOf<FieldCandidate>()
 
         // Text input keys to look for in text encoding nodes
-        val textInputKeys = listOf("text", "prompt")
+        val textInputKeys = listOf("text", "prompt", "value")
 
         // Find all text encoding nodes with text/prompt input
         data class TextEncoderNode(val nodeId: String, val node: JSONObject, val inputKey: String)
@@ -506,6 +506,7 @@ class WorkflowManagementViewModel : ViewModel() {
                 // Only include known text encoding node types
                 val isTextEncoder = classType == "CLIPTextEncode" ||
                         classType.contains("TextEncode", ignoreCase = true) ||
+                        classType.contains("String", ignoreCase = true) ||
                         classType.contains("Prompt", ignoreCase = true)
                 if (isTextEncoder) {
                     textEncoderNodes.add(TextEncoderNode(nodeId, node, matchingInputKey))
